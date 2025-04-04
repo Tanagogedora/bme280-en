@@ -57,7 +57,7 @@ namespace BME280 {
 
 	// Pressure Unit / 気圧の単位
 	// Pressure units: Pa or hPa / 単位：Pa（パスカル）または hPa（ヘクトパスカル）
-		enum BME280_P {
+		export enum BME280_P {
     		//% block="Pa"
     			Pa = 0,
     		//% block="hPa"
@@ -286,8 +286,9 @@ namespace BME280 {
         			var2 = var1 - (((((var1 >> 15) * (var1 >> 15)) >> 7) * dig_H1) >> 4)
         			if (var2 < 0) var2 = 0
         				if (var2 > 419430400) var2 = 419430400
+							H = var2 >> 12 >> 10 //検証のため整数化
 						// Round to 0.01% / 小数点第２位を四捨五入し0.1%まで求める 
-        				H = Math.round((var2 / 1024.0 / 1024.0) * 10) / 10
+        				//　検証のためコメントにH = Math.round((var2 / 1024.0 / 1024.0) * 10) / 10
     		}
 
 		/**
