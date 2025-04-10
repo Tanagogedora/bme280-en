@@ -289,17 +289,15 @@ namespace BME280 {
 						// Round to 0.01% / 小数点第２位を四捨五入し0.1%まで求める 
         					H = Math.round((var2 / 4194304.0) * 10) / 10
     		}
-
+		//
 		/**
-		 *  Get pressure value from BME280 sensor
- 		 *  BME280 センサーから気圧を取得
- 		 * 
+		 *  Get pressure value from BME280 sensor/BME280 センサーから気圧を取得
+ 		 *   
  		 *  @param u Pressure unit (Pa or hPa) / 気圧の単位（Pa または hPa）
  		 *  @returns Pressure value / 気圧の値（単位に応じた小数第1位）
  		 */
    			//% blockId="BME280_GET_PRESSURE"
 			//% block="Pressuer /気圧 %u"
-			//% tooltip="Pressuere/気圧 (Pa/hPa)"
  			//% weight=80 blockGap=8
 				export function pressure(u: BME280_P): number {
     				get();
@@ -313,8 +311,7 @@ namespace BME280 {
 				}
 
 		/**
-		 * Get temperature value from BME280 sensor
- 		 * BME280 センサーから気温を取得します
+		 * Get temperature value from BME280 sensor/ BME280 センサーから気温を取得します
  		 *
  		 * @param u Temperature unit (C or F) / 温度の単位（C または F）
  		 * @returns Temperature value / 気温の値（単位に応じた小数第1位）
@@ -334,8 +331,7 @@ namespace BME280 {
     			}
 
 		/**
-		 * Get humidity value from BME280 sensor
- 		 * BME280 センサーから湿度を取得します
+		 * Get humidity value from BME280 sensor / BME280 センサーから湿度を取得します
  		 *
  		 * @param u Humidity unit % / 湿度の単位 %
  		 * @returns Temperature value / 湿度の値（小数第1位）
@@ -349,7 +345,7 @@ namespace BME280 {
 		//Sensor power control (Power ON and OFF)
 		//センサーの電源管理（起動と停止）
     	/**
-    	 * power on　センサー起動
+    	 * power on / センサー起動
      	 */
 		//% blockId="BME280_POWER_ON" block="
 		//% block="Power On Sensor /センサー起動""
@@ -383,8 +379,7 @@ namespace BME280 {
 	 * イベントブロック
 	 */
 		/**
- 		* Triggered when pressure is Lower than a specified value.
- 		* 気圧が指定値より低い場合
+ 		* Triggered when pressure is Lower than a specified value. / 気圧が指定値より低い場合
  		*
  		* @param dat Threshold value / しきい値（Pa）
  		* @param body Action to perform / 実行する処理
@@ -403,8 +398,7 @@ namespace BME280 {
     			}
 
 		/**
- 		 * Triggered when pressure is Higher than a specified value.
- 		 * 気圧が指定値より高い場合
+ 		 * Triggered when pressure is Higher than a specified value. / 気圧が指定値より高い場合
  		 *
  		 * @param dat Threshold value / しきい値（Pa）
  		 * @param body Action to perform / 実行する処理
@@ -423,8 +417,7 @@ namespace BME280 {
     			}
 
 		/**
- 		* Triggered when temprature is Lower than a specified value.
- 		* 気温が指定値より低い場合
+ 		* Triggered when temprature is Lower than a specified value. / 気温が指定値より低い場合
  		*
  		* @param dat Threshold value / しきい値（C）
  		* @param body Action to perform / 実行する処理
@@ -443,8 +436,7 @@ namespace BME280 {
    			 	}
 
 		/**
-	　	* Triggered when tempratuere is Lower than a specified value.
- 		* 気温が指定値より低い場合
+	　	* Triggered when tempratuere is Lower than a specified value. / 気温が指定値より低い場合
  		*
  		* @param dat Threshold value / しきい値（C）
  		* @param body Action to perform / 実行する処理
@@ -463,8 +455,7 @@ namespace BME280 {
     			}
 		
 		/**
-	　	* Triggered when humidity is Lower than a specified value.
- 		* 湿度が指定値より低い場合
+	　	* Triggered when humidity is Lower than a specified value. /  湿度が指定値より低い場合
  		*
  		* @param dat Threshold value / しきい値（C）
  		* @param body Action to perform / 実行する処理
@@ -483,8 +474,7 @@ namespace BME280 {
     			}
 
 	　	/**
-		* Triggered when humidity is Higher than a specified value.
- 		* 湿度が指定値より高い場合
+		* Triggered when humidity is Higher than a specified value. / 湿度が指定値より高い場合
  		*
  		* @param dat Threshold value / しきい値（C）
  		* @param body Action to perform / 実行する処理
@@ -503,8 +493,7 @@ namespace BME280 {
     			}
 
 		/**
- 		 * Set the I2C address of the BME280 sensor.
- 		 * BME280 の I2C アドレスを設定
+ 		 * Set the I2C address of the BME280 sensor. / BME280 の I2C アドレスを設定
  		 * 
  		 *  @param addr I2C address to set / 設定する I2C アドレス
  		 */
