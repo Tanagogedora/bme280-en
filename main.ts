@@ -299,6 +299,7 @@ namespace BME280 {
  		 */
    			//% blockId="BME280_GET_PRESSURE"
 			//% block="Pressuer /気圧 %u"
+			//% tooltip="Pressuere/気圧 (Pa/hPa)"
  			//% weight=80 blockGap=8
 				export function pressure(u: BME280_P): number {
     				get();
