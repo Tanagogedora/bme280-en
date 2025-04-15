@@ -8,7 +8,7 @@
 * [https://makecode.microbit.org/](https://makecode.microbit.org/) を開く
 * **新しいプロジェクト** をクリックしてください
 * ギアボタンメニューの中にある **拡張機能** をクリックしてください
-* **https://github.com/tanagogedora/bme280multibeta** を検索してインポートします。
+* **https://github.com/tanagogedora/BME280_JP** を検索してインポートします。
 
 ## このプロジェクトを編集します
 
@@ -16,7 +16,7 @@ MakeCode でこのリポジトリを編集します。
 
 * [https://makecode.microbit.org/](https://makecode.microbit.org/) を開く
 * **読み込む** をクリックし、 **URLから読み込む...** をクリックしてください
-* **https://github.com/tanagogedora/bme280multibeta** を貼り付けてインポートをクリックしてください
+* **https://github.com/tanagogedora/BME280_JP** を貼り付けてインポートをクリックしてください
 
 #### メタデータ (検索、レンダリングに使用)
 
