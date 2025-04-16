@@ -45,7 +45,7 @@ Sensor values are based on the official BME280 datasheet.
 1. Open [https://makecode.microbit.org/](https://makecode.microbit.org/)
 1. Click "Import" → "Import URL"  
 1. Paste this URL  
-   `https://github.com/tanagogedora/bme280beta`
+   `https://github.com/tanagogedora/BME280_JP`
 
 
 ---
@@ -55,7 +55,7 @@ Sensor values are based on the official BME280 datasheet.
 1. MakeCode [https://makecode.microbit.org/](https://makecode.microbit.org/) を開く
 1. 「読み込む」→「URLから読み込む…」を選択
 1. 以下の URL を貼り付けてインポート   
-	`https://github.com/tanagogedora/bme280beta`
+	`https://github.com/tanagogedora/BME280_JP`
 
 ---
 
