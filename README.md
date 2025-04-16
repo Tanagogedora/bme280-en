@@ -34,6 +34,21 @@ Sensor values are based on the official BME280 datasheet.
 
 ---
 
+### 🖼 Example / 使用例 
+
+🎯 The following sample (block/script) performs the following actions:
+- Connects the BME280 weather sensor to the micro:bit via I2C (address: `0x76`).
+- Initializes the BMP280 so it can measure temperature and atmospheric pressure.
+- **Pressing button A** displays the **temperature** (in Celsius, with one decimal place) on the micro:bit LED.
+- **Pressing button B** displays the **air pressure** (in hPa, with one decimal place) on the micro:bit LED.
+- **Pressing button A+B** displays the **humidity** (in %, with one decimal place) on the micro:bit LED.
+🎯 次のサンプル（ブロック／スクリプト）は、以下のような動作を行います：
+- I2C接続により、気象センサー BME280 と micro:bit が接続されます（アドレス：`0x76`）。
+- BMP280 が有効化され、気温・気圧の測定が可能になります。
+- **ボタンA** を押すと、micro:bit のLEDに **気温（摂氏・小数第1位）** が表示されます。
+- **ボタンB** を押すと、micro:bit のLEDに **気圧（hPa・小数第1位）** が表示されます。
+- **ボタンA+B** を押すと、micro:bit のLEDに **湿度（％・小数第1位）** が表示されます。
+
 ### 🖼 Sample Blocks / ブロックの使用例 
 
 English
@@ -49,11 +64,11 @@ BME280.PowerOn()
 input.onButtonPressed(Button.A, function () {
     basic.showString("" + BME280.temperature(BME280.BME280_T.T_C) + "C")
 })
-input.onButtonPressed(Button.AB, function () {
-    basic.showString("" + BME280.humidity() + "%")
-})
 input.onButtonPressed(Button.B, function () {
     basic.showString("" + BME280.pressure(BME280.BME280_P.hPa) + "hPa")
+})
+input.onButtonPressed(Button.AB, function () {
+    basic.showString("" + BME280.humidity() + "%")
 })
 
 ```
