@@ -10,7 +10,7 @@ Sensor values are based on the official BME280 datasheet.
  
 > ⚠️ **この拡張機能は現在ベータ版です。動作確認中の機能が含まれます。ご使用の際はご注意ください。**
 
-> 🔗 Demo Page:**デモページを見る: [https://tanagogedora.github.io/bme280beta/](https://tanagogedora.github.io/bme280beta/)
+> 🔗 Demo Page:**デモページを見る: [https://tanagogedora.github.io/BME280_JP/](https://tanagogedora.github.io/bme280beta/)
 
 ---
 ## 📦 How to Use / 使い方
@@ -19,7 +19,7 @@ Sensor values are based on the official BME280 datasheet.
 1. Create a new project
 1. Click the gear icon (⚙) in the top-right → select “Extensions”
 1. Paste the following URL to add the extension  
-	 `https://github.com/tanagogedora/bme280beta` 
+	 `https://github.com/tanagogedora/BME280_JP` 
 
 ---
 
@@ -29,7 +29,7 @@ Sensor values are based on the official BME280 datasheet.
 1. 「新しいプロジェクト」をクリック
 1. 画面右上のギアボタン（⚙）をクリックし、「拡張機能」を選択 
 1. 下記の URL を検索または貼り付けてインポート    
-	`https://github.com/tanagogedora/bme280beta`
+	`https://github.com/tanagogedora/BME280_JP`
 
 
 ---
