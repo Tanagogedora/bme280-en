@@ -38,6 +38,8 @@ Sensor values are based on the official BME280 datasheet.
 English
 ![BME280 ブロック](https://github.com/Tanagogedora/BME280_JP/blob/main/BME280en.png?raw=true)
 
+日本語
+![BME280 ブロック](https://github.com/Tanagogedora/BME280_JP/blob/main/BME280jp.png?raw=true)
 ---
 
 ### ✏️ To modify the extension source code in MakeCode:
