@@ -34,12 +34,29 @@ Sensor values are based on the official BME280 datasheet.
 
 ---
 
-### 🖼 Example Blocks / ブロック例
+### 🖼 Sample Blocks / ブロックの使用例 
+
 English
 ![BME280 ブロック](https://github.com/Tanagogedora/BME280_JP/blob/main/BME280en.png?raw=true)
 
-日本語
+日本語 
 ![BME280 ブロック](https://github.com/Tanagogedora/BME280_JP/blob/main/BME280ja.png?raw=true)
+
+💻 Sample Code / JavaScriptサンプル 
+```javascript
+BME280.Address(BME280.BME280_I2C_ADDRESS.ADDR_0x76)
+BME280.PowerOn()
+input.onButtonPressed(Button.A, function () {
+    basic.showString("" + BME280.temperature(BME280.BME280_T.T_C) + "C")
+})
+input.onButtonPressed(Button.AB, function () {
+    basic.showString("" + BME280.humidity() + "%")
+})
+input.onButtonPressed(Button.B, function () {
+    basic.showString("" + BME280.pressure(BME280.BME280_P.hPa) + "hPa")
+})
+
+```
 ---
 
 ### ✏️ To modify the extension source code in MakeCode:
