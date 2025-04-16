@@ -35,8 +35,8 @@ Sensor values are based on the official BME280 datasheet.
 ---
 
 ### 🖼 Example Blocks / ブロック例
-
-![BME280 ブロック](https://github.com/Tanagogedora/bme280beta/blob/main/BME280Block.png?raw=true)
+English
+![BME280 ブロック](https://github.com/Tanagogedora/BME280_JP/blob/main/BME280en.png?raw=true)
 
 ---
 
