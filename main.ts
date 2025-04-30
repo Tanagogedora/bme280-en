@@ -338,7 +338,7 @@ namespace BME280 {
         var2 = var1 - (((((var1 >> 15) * (var1 >> 15)) >> 7) * dig_H1) >> 4)
         if (var2 < 0) var2 = 0
         if (var2 > 419430400) var2 = 419430400
-        // Calculate Humidity (no rounding)/湿度を算出（数値の丸めなし）
+        // Calculate Humidity (precision 2 decimal place)/湿度を算出（小数点第２位まで）
         H = Rnber(var2 / 4194304.0,100);
     }
     
@@ -346,7 +346,7 @@ namespace BME280 {
      * Function Calculate Saturation Vapor Pressure
      * , Saturatio Vapor Amount and  from temperature.
      * 気温から飽和水蒸気圧・飽和水蒸気量・露点を計算する関数
-     * Calculation precision 2nd decimal placen: 2 decimal place
+     * Calculation precision 2 decimal place
      * 計算精度　小数点第2位
      * 
      * Saturation vapor pressure:Tetens-approximation
@@ -371,7 +371,7 @@ namespace BME280 {
      *  @returns Pressure value / 気圧の値（単位に応じた小数第1位）         
      */
     //% blockId="BME280_GET_PRESSURE"
-    //% block="Pressuer / 気圧 %Pu　Accuracy / 精度 %Prd"
+    //% block="Pressuer / 気圧 %Pu　Precision / 精度 %Prd"
     //% weight=80 blockGap=8
     export function pressure(Pu: BME280_P,Prd: RPoint): number {
         get();
@@ -385,7 +385,7 @@ namespace BME280 {
      * @returns Temperature value / 気温の値（単位に応じた小数第1位）
      */
     //% blockId="BME280_GET_TEMPERATURE"
-    //% block="Tempratuere /気温 %Tu Accuracy / 精度 %Trd"
+    //% block="Tempratuere /気温 %Tu Precision / 精度 %Trd"
     //% weight=80 blockGap=8
     export function temperature(Tu: BME280_T, Trd: RPoint): number {
         get();
@@ -404,7 +404,7 @@ namespace BME280 {
      * @returns Humidity value / 湿度の値（小数第1位）
      */
     //% blockId="BME280_GET_HUMIDITY"
-    //% block="Humidity / 湿度 精度 %Hrd"
+    //% block="Humidity / 湿度 Precision / 精度 %Hrd"
     //% weight=80 blockGap=8
     export function humidity(Hrd:RPoint): number {
         get();
