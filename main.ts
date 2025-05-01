@@ -77,6 +77,7 @@ namespace BME280 {
     // Selection of Saturated Water Vapor Pressure,
     // and Saturated Water Vapor Amount
     // 飽和水蒸気圧・飽和水蒸気量選択
+    // 今後の修正以・変更のために残してある。
 
     export enum Spad {
         //% block="Saturated Water Vapor Presure / 飽和水蒸気圧"
@@ -288,8 +289,10 @@ namespace BME280 {
      * 気温・気圧・湿度の算出
      * Reads raw data from the sensor and calculates
      * corrected temperature , pressure and humidity.
+     * Calculated to two decimal places
      * センサーから生データを読み取り、
      * 補正済みの気温・気圧・湿度を算出。
+     * 小数第二位まで算出
      */
     function get(): void {
         // Calculate Temperatuer/気温の計算
@@ -300,8 +303,8 @@ namespace BME280 {
         let var2 = (((((adc_T >> 4) - dig_T1) * ((adc_T >> 4) - dig_T1)) >> 12) * dig_T3) >> 14
         let t_fine = var1 + var2;
         let temp = t_fine;
-        // Calculate corrected temperature(no rounding)
-        // 補正後の気温を計算（数値の丸めなし）
+        // Calculate corrected temperature.
+        // 補正後の気温を計算
         T = Rnber(((temp * 5 + 128) / 256.0) / 100.0,100) ;
 
         // Calculate Pressure/気圧の計算
@@ -322,7 +325,7 @@ namespace BME280 {
         }
         let _p = ((1048576 - adc_P) - (var2 >> 12)) * 3125;
 
-        // Calculate Pressure (no rounding)/気圧を算出（数値の丸めなし）
+        // Calculate Pressure./気圧を算出
         _p = (_p / var1) * 2 ;
         var1 = (dig_P9 * (((_p >> 3) * (_p >> 3)) >> 13)) >> 12;
         var2 = (((_p >> 2)) * dig_P8) >> 13;
@@ -343,8 +346,8 @@ namespace BME280 {
     }
     
     /**
-     * Function Calculate Saturation Vapor Pressure
-     * , Saturatio Vapor Amount and  from temperature.
+     * Function Calculate Saturation Vapor Pressure,
+     * Saturatio Vapor Amount and  from temperature.
      * 気温から飽和水蒸気圧・飽和水蒸気量・露点を計算する関数
      * Calculation precision 2 decimal place
      * 計算精度　小数点第2位
@@ -368,7 +371,7 @@ namespace BME280 {
      *  Get pressure value from BME280 sensor/BME280 センサーから気圧を取得
      *   
      *  @param u Pressure unit (Pa or hPa) / 気圧の単位（Pa または hPa）
-     *  @returns Pressure value / 気圧の値（単位に応じた小数第1位）         
+     *  @returns Pressure value(Integer or decimal place) / 気圧の値（整数または小数第1位）         
      */
     //% blockId="BME280_GET_PRESSURE"
     //% block="Pressuer / 気圧 %Pu　Precision / 精度 %Prd"
@@ -380,9 +383,8 @@ namespace BME280 {
 
     /**
      * Get temperature value from BME280 sensor/ BME280 センサーから気温を取得
-     *
      * @param u Temperature unit (C or F) / 温度の単位（C または F）
-     * @returns Temperature value / 気温の値（単位に応じた小数第1位）
+     * @returns Temperature value.(Integer or decimal place) / 気温の値（整数または小数第1位）
      */
     //% blockId="BME280_GET_TEMPERATURE"
     //% block="Tempratuere /気温 %Tu Precision / 精度 %Trd"
@@ -401,7 +403,7 @@ namespace BME280 {
      * Get humidity value from BME280 sensor / BME280 センサーから湿度を取得
      *
      * @param u Humidity unit % / 湿度の単位 %
-     * @returns Humidity value / 湿度の値（小数第1位）
+     * @returns Humidity value.(Integer or decimal place) / 湿度の値（整数または小数第1位）
      */
     //% blockId="BME280_GET_HUMIDITY"
     //% block="Humidity / 湿度 Precision / 精度 %Hrd"
