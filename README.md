@@ -54,14 +54,11 @@ input.onButtonPressed(Button.AB, function () {
 1. Open [https://makecode.microbit.org/](https://makecode.microbit.org/)
 1. Click "Import" → "Import URL"  
 1. Paste this URL  
-	 `https://github.com/tanagogedora/bme280-en`
-
-
+	 `https://github.com/tanagogedora/bme280-en`  
 
 ---
 
-## 🧪 Sensor Specification (Based on Datasheet) 
-
+## 🧪 Sensor Specification (Based on Datasheet)   
 
 | Measurement | Range | Accuracy | Resolution |
 |-----------|------------------|-------------------|--------------------|
@@ -69,7 +66,7 @@ input.onButtonPressed(Button.AB, function () {
 | Temperature | -40 ～ +85 ℃ | ±0.5 ～ 1.0 ℃ | ±0.01 ℃ |
 | Humidity | 0～100% | ±3% | ±0.008% |
 
-※ Sensor values are based on the official BME280 datasheet.
+※ Sensor values are based on the official BME280 datasheet.  
 
 
 ## 📝 Acknowledgement
