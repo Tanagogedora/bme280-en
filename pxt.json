@@ -1,6 +1,6 @@
 {
-    "name": "BME280多言語GitHub",
-    "description": "",
+    "name": "bme280-en",
+    "description": "BME280 Extended Function English Version",
     "dependencies": {
         "core": "*",
         "radio": "*",
