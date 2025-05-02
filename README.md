@@ -1,5 +1,5 @@
 # Sensor Extension for micro:bit
-# micro:bit 用 BME280 センサー拡張機能
+# micro:bit 用 BME280 センサー拡張機能開発
 
 You can measure atmospheric pressure, temperature, and humidity.  
 Sensor values are based on the official BME280 datasheet.
@@ -19,7 +19,7 @@ Sensor values are based on the official BME280 datasheet.
 1. Create a new project
 1. Click the gear icon (⚙) in the top-right → select “Extensions”
 1. Paste the following URL to add the extension  
-	 `https://github.com/tanagogedora/BME280_JP` 
+	 `https://github.com/tanagogedora/BME280ENJP/` 
 
 ---
 
@@ -29,8 +29,7 @@ Sensor values are based on the official BME280 datasheet.
 1. 「新しいプロジェクト」をクリック
 1. 画面右上のギアボタン（⚙）をクリックし、「拡張機能」を選択 
 1. 下記の URL を検索または貼り付けてインポート    
-	`https://github.com/tanagogedora/BME280_JP`
-
+	 `https://github.com/tanagogedora/BME280ENJP`
 
 ---
 
@@ -79,7 +78,7 @@ input.onButtonPressed(Button.AB, function () {
 1. Open [https://makecode.microbit.org/](https://makecode.microbit.org/)
 1. Click "Import" → "Import URL"  
 1. Paste this URL  
-   `https://github.com/tanagogedora/BME280_JP`
+	 `https://github.com/tanagogedora/BME280ENJP`
 
 
 ---
@@ -89,7 +88,7 @@ input.onButtonPressed(Button.AB, function () {
 1. MakeCode [https://makecode.microbit.org/](https://makecode.microbit.org/) を開く
 1. 「読み込む」→「URLから読み込む…」を選択
 1. 以下の URL を貼り付けてインポート   
-	`https://github.com/tanagogedora/BME280_JP`
+	 `https://github.com/tanagogedora/BME280ENJP`
 
 ---
 
