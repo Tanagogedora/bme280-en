@@ -34,6 +34,7 @@ Sensor values are based on the official BME280 datasheet.
 
 💻 Sample Code  
 ```javascript
+
 BME280.Address(BME280.BME280_I2C_ADDRESS.ADDR_0x76)
 BME280.PowerOn()
 input.onButtonPressed(Button.A, function () {
