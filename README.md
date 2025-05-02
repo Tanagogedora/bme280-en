@@ -10,7 +10,7 @@ Sensor values are based on the official BME280 datasheet.
  
 > ⚠️ **この拡張機能は現在ベータ版です。動作確認中の機能が含まれます。ご使用の際はご注意ください。**
 
-> 🔗 Demo Page:**デモページを見る: [https://tanagogedora.github.io/BME280_JP/](https://tanagogedora.github.io/BME280_JP/)
+> 🔗 Demo Page:**デモページを見る: [https://tanagogedora.github.io/BME280ENJP/](https://tanagogedora.github.io/BME280ENJP/)
 
 ---
 ## 📦 How to Use / 使い方
