@@ -37,14 +37,15 @@ Sensor values are based on the official BME280 datasheet.
 
 BME280.Address(BME280.BME280_I2C_ADDRESS.ADDR_0x76)
 BME280.PowerOn()
+basic.pause(1000)
 input.onButtonPressed(Button.A, function () {
-    basic.showString("" + BME280.temperature(BME280.BME280_T.T_C) + "C")
-})
-input.onButtonPressed(Button.B, function () {
-    basic.showString("" + BME280.pressure(BME280.BME280_P.hPa) + "hPa")
+    basic.showString("" + BME280.temperature(BME280.BME280_T.T_C, BME280.RPoint.RPt) + "C")
 })
 input.onButtonPressed(Button.AB, function () {
-    basic.showString("" + BME280.humidity() + "%")
+    basic.showString("" + BME280.humidity(BME280.Rpoint2.RP1st) + "%")
+})
+input.onButtonPressed(Button.B, function () {
+    basic.showString("" + BME280.pressure(BME280.BME280_P.hPa, BME280.RPoint.RPt) + "hPa")
 })
 
 ---
