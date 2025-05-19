@@ -457,7 +457,7 @@ namespace BME280 {
      * 標高差の値（整数/小数第１位） 
      * 単位　ｍ/ft
      */
-    //% block="Elevation Δ %ELU Reference Press %P0 %uP0 Format %RndEl"
+    //% block="Elevation Δ( %ELU ) Reference Press %P0 (Unit %uP0 ) Format %RndEl"
     //% blockId="Elevation_difference"
     //% weight=80  blockGap=8
     export function getElevationdifference(Elu: Eldf, P0: number, uP0: BME280_P, RndEl: Rpoint2): number {
