@@ -16,6 +16,12 @@
  * Can measure temperature, pressure, and humidity. 
  * Can also calculate dew point from temperature and humidity.
  * See README for detailed data such as measurement range.
+ *
+ * マイクロビット MakeCode 用 BME280 デジタル気象センサー
+ * モジュール対応パッケージです。
+ * 気温・気圧・湿度を測定できます。
+ * また気温・湿度から露点を求めることができます。
+ * 測定範囲など詳細なデータはREADMEをご覧ください。
 */
 
 /**
@@ -25,6 +31,9 @@
 * digital pressure and temperature sensor.
 * It includes functions to read temperature, pressure, and humidity, 
 * control power modes, and configure the I2C address.
+* 
+* BME280 センサー用のブロック群です。
+* 気温・気圧・湿度の取得や電源制御などを行います。
 */
 
 namespace BME280 {
@@ -59,49 +68,59 @@ namespace BME280 {
     export enum Eldf {
         //Units meter/単位 メートル
         //% block="m"
-            altd_m=1,
+        altd_m = 1,
         //Units feet/単位 フィート
         //% block="ft"
-            altd_f = 2
+        altd_f = 2
     }
 
     // Selection of Saturated Water Vapor Pressure,
     // and Saturated Water Vapor Amount
-    // It is left in place for future revisions and changes.
     // 飽和水蒸気圧・飽和水蒸気量選択
     // 今後の修正以・変更のために残してある。
 
     export enum Spad {
-        //% block="Saturated Water Vapor Presure"
-            swp=1,
-        //% block="Saturated Water Vapor Amount"
-            swa=2
+        //% block="Saturated Water Vapor Presure / 飽和水蒸気圧"
+        swp = 1,
+        //% block="Saturated Water Vapor Amount / 飽和水蒸気量"
+        swa = 2
     }
 
     // Selection Humidity Selection,Water Vapor Pressure and Water Vapor Amount 
-    // It is left in place for future revisions and changes.
     // 相対湿度・水蒸気圧・水蒸気量の選択
-    // 今後の修正以・変更のために残してある。
     export enum SelecHPA {
-        // block="Humidit"
-            hmdy=1,
-        // block="Water Vapor Pressure"
-            wvp=2,
-        // block="Water Vapor Amount"
-            wva=3
+        // block="Humidit / 湿度"
+        hmdy = 1,
+        // block="Water Vapor Pressure / 水蒸気圧"
+        wvp = 2,
+        // block="Water Vapor Amount / 水蒸気量"
+        wva = 3
     }
-   
-    // Numerical precision
-    // 数値の精度
-    // Integer / 1　decimal place
-    // 整数 / 小数第1位
+
+    // Numerical precision(1)
+    // 数値の精度(1)
+    // Integer or 1st decimal place or 2nd decimal place
+    // 整数 / 小数第1位 / 小数第２位
     export enum RPoint {
         //% block="Integer"
-            Rint=1,
-        //% block="1 demicl place"
-            RPt=10
+        Rint = 1,
+        //% block="1st decimal place"
+        RPt = 10,
+        //% block=" 2nd decimal place"
+        RPd = 100
     }
-        
+
+    // Numerical precision
+    // 数値の精度(2)
+    // Integer or 1st decimal place
+    // 整数 / 小数第1位
+    export enum Rpoint2 {
+        //% block="Integer"
+        Rintg = 1,
+        //% block="1st decimal place"
+        RP1st = 10
+    }
+
     /**
      * Global variables to store the final compensated
      * temperature, pressure and humidity 
@@ -209,11 +228,10 @@ namespace BME280 {
         return pins.i2cReadNumber(BME280_I2C_ADDR, NumberFormat.Int16LE);
     }
 
-    // Rounding numbers/数値の四捨五入
-    // Integer/demicl 1 place
-    // 整数 / 小数第1位 
-    export function Rnber(dt:number,Rdp:number): number {
-        return Math.round(dt*Rdp)/Rdp
+    // Function Rounding numbers/数値の四捨五入を行う関数
+    // Round to the specified number of decimal places / 指定した小数点の桁数で四捨五入
+    export function Rnber(dt: number, Rdp: number): number {
+        return Math.round(dt * Rdp) / Rdp;
     }
 
     // Function "Get Tempratuer , Pressuer and humidity".
@@ -239,29 +257,29 @@ namespace BME280 {
      * dig_H1 to dig_H6: humidity/湿度補正
      */
     // Temperature calibration parameters / 気温補正用パラメータ
-    let dig_T1 = getUInt16LE(0x88)
-    let dig_T2 = getInt16LE(0x8A)
-    let dig_T3 = getInt16LE(0x8C)
+    let dig_T1 = getUInt16LE(0x88);
+    let dig_T2 = getInt16LE(0x8A);
+    let dig_T3 = getInt16LE(0x8C);
 
     // Pressure calibration parameters / 気圧補正用パラメータ
-    let dig_P1 = getUInt16LE(0x8E)
-    let dig_P2 = getInt16LE(0x90)
-    let dig_P3 = getInt16LE(0x92)
-    let dig_P4 = getInt16LE(0x94)
-    let dig_P5 = getInt16LE(0x96)
-    let dig_P6 = getInt16LE(0x98)
-    let dig_P7 = getInt16LE(0x9A)
-    let dig_P8 = getInt16LE(0x9C)
-    let dig_P9 = getInt16LE(0x9E)
+    let dig_P1 = getUInt16LE(0x8E);
+    let dig_P2 = getInt16LE(0x90);
+    let dig_P3 = getInt16LE(0x92);
+    let dig_P4 = getInt16LE(0x94);
+    let dig_P5 = getInt16LE(0x96);
+    let dig_P6 = getInt16LE(0x98);
+    let dig_P7 = getInt16LE(0x9A);
+    let dig_P8 = getInt16LE(0x9C);
+    let dig_P9 = getInt16LE(0x9E);
 
     // Humidity calibration parameters / 湿度補正用パラメータ   		
-    let dig_H1 = getreg(0xA1)
-    let dig_H2 = getInt16LE(0xE1)
-    let dig_H3 = getreg(0xE3)
-    let a = getreg(0xE5)
-    let dig_H4 = (getreg(0xE4) << 4) + (a % 16)
-    let dig_H5 = (getreg(0xE6) << 4) + (a >> 4)
-    let dig_H6 = getInt8LE(0xE7)
+    let dig_H1 = getreg(0xA1);
+    let dig_H2 = getInt16LE(0xE1);
+    let dig_H3 = getreg(0xE3);
+    let a = getreg(0xE5);
+    let dig_H4 = (getreg(0xE4) << 4) + (a % 16);
+    let dig_H5 = (getreg(0xE6) << 4) + (a >> 4);
+    let dig_H6 = getInt8LE(0xE7);
 
     /**
      * Sensor configuration:
@@ -274,16 +292,16 @@ namespace BME280 {
      * - 温度のオーバーサンプリングを16倍、気圧を1倍、動作モードをノーマルに設定（ctrl_meas、0xF4）
      * - スタンバイ時間を250ms、フィルター係数を4倍に設定（config、0xF5）
      */
-    setreg(0xF2, 0x04)
-    setreg(0xF4, 0x2F)
-    setreg(0xF5, 0x0C)
+    setreg(0xF2, 0x04);
+    setreg(0xF4, 0x2F);
+    setreg(0xF5, 0x0C);
 
     /**
      * Calculate Temperatuer , Pressure and Humidity
      * 気温・気圧・湿度の算出
      * Reads raw data from the sensor and calculates
      * corrected temperature , pressure and humidity.
-     * Calculated to two decimal places
+     * Calculated to  2 decimal place
      * センサーから生データを読み取り、
      * 補正済みの気温・気圧・湿度を算出。
      * 小数第二位まで算出
@@ -292,14 +310,14 @@ namespace BME280 {
         // Calculate Temperatuer/気温の計算
         // Read raw temperature data (20 bits)
         // 温度の生データ（20ビット）読み取り
-        let adc_T = (getreg(0xFA) << 12) + (getreg(0xFB) << 4) + (getreg(0xFC) >> 4)
-        let var1 = (((adc_T >> 3) - (dig_T1 << 1)) * dig_T2) >> 11
-        let var2 = (((((adc_T >> 4) - dig_T1) * ((adc_T >> 4) - dig_T1)) >> 12) * dig_T3) >> 14
+        let adc_T = (getreg(0xFA) << 12) + (getreg(0xFB) << 4) + (getreg(0xFC) >> 4);
+        let var1 = (((adc_T >> 3) - (dig_T1 << 1)) * dig_T2) >> 11;
+        let var2 = (((((adc_T >> 4) - dig_T1) * ((adc_T >> 4) - dig_T1)) >> 12) * dig_T3) >> 14;
         let t_fine = var1 + var2;
         let temp = t_fine;
         // Calculate corrected temperature.
         // 補正後の気温を計算
-        T = Rnber(((temp * 5 + 128) / 256.0) / 100.0,100) ;
+        T = Rnber(((temp * 5 + 128) / 256.0) / 100.0, 100);
 
         // Calculate Pressure/気圧の計算
         // Read raw pressure data (20 bits)
@@ -320,29 +338,29 @@ namespace BME280 {
         let _p = ((1048576 - adc_P) - (var2 >> 12)) * 3125;
 
         // Calculate Pressure./気圧を算出
-        _p = (_p / var1) * 2 ;
+        _p = (_p / var1) * 2;
         var1 = (dig_P9 * (((_p >> 3) * (_p >> 3)) >> 13)) >> 12;
         var2 = (((_p >> 2)) * dig_P8) >> 13;
-        P =Rnber(_p + ((var1 + var2 + dig_P7) >> 4),100);
+        P = Rnber(_p + ((var1 + var2 + dig_P7) >> 4), 10);
 
-        // Calculate Humidity / 湿度の計算
+        // Calculate Humidity/	湿度の計算
         // Read raw pressure data (16 bits)
         // 湿度の生データ（16ビット）読み取り
-        let adc_H = (getreg(0xFD) << 8) + getreg(0xFE)
-        var1 = t_fine - 76800
-        var2 = (((adc_H << 14) - (dig_H4 << 20) - (dig_H5 * var1)) + 16384) >> 15
-        var1 = var2 * (((((((var1 * dig_H6) >> 10) * (((var1 * dig_H3) >> 11) + 32768)) >> 10) + 2097152) * dig_H2 + 8192) >> 14)
-        var2 = var1 - (((((var1 >> 15) * (var1 >> 15)) >> 7) * dig_H1) >> 4)
-        if (var2 < 0) var2 = 0
-        if (var2 > 419430400) var2 = 419430400
+        let adc_H = (getreg(0xFD) << 8) + getreg(0xFE);
+        var1 = t_fine - 76800;
+        var2 = (((adc_H << 14) - (dig_H4 << 20) - (dig_H5 * var1)) + 16384) >> 15;
+        var1 = var2 * (((((((var1 * dig_H6) >> 10) * (((var1 * dig_H3) >> 11) + 32768)) >> 10) + 2097152) * dig_H2 + 8192) >> 14);
+        var2 = var1 - (((((var1 >> 15) * (var1 >> 15)) >> 7) * dig_H1) >> 4);
+        if (var2 < 0) var2 = 0;
+        if (var2 > 419430400) var2 = 419430400;
         // Calculate Humidity (precision 2 decimal place)/湿度を算出（小数点第２位まで）
-        H = Rnber(var2 / 4194304.0,100);
+        H = Rnber(var2 / 4194304.0, 100);
     }
-    
+
     /**
      * Function Calculate Saturation Vapor Pressure,
      * Saturatio Vapor Amount and  from temperature.
-     * 気温から飽和水蒸気圧・飽和水蒸気量・露点を計算する関数
+     * 気温から飽和水蒸気圧を計算する関数
      * Calculation precision 2 decimal place
      * 計算精度　小数点第2位
      * 
@@ -351,60 +369,60 @@ namespace BME280 {
      * 
      * 6.1078 * 10 ** ((7.5 * Temp)/(237.3 + Temp))
      */
-    export function SatVpad(Temp: number ,RH: number) :number
-     { 
+    export function SatVpad(Temp: number, RH: number): number {
         // numerator（分子）べき乗部の分子部　
         let NMER = 7.5 * Temp;
         // denominator(分母)　べき乗の分母部　
         let DMN = 237.3 + Temp;
         // Calcrate Saturatio Vapor Pressure / 飽和水蒸気圧の計算
         let SVP = 6.1078 * Math.pow(10, NMER / DMN);
-        return SVP=Rnber(SVP, 100);         
+        return SVP = Rnber(SVP, 100);
     }
     /**
      *  Get pressure value from BME280 sensor/BME280 センサーから気圧を取得
-     *   
      *  @param u Pressure unit (Pa or hPa) / 気圧の単位（Pa または hPa）
-     *  @returns Pressure value(Integer or decimal place) / 気圧の値（整数または小数第1位）         
+     *  @returns Pressure value(Integer or 1st decimal place or 2nd decimal place) 
+     *  気圧の値（整数/小数第１位/小数第２位）
      */
     //% blockId="BME280_GET_PRESSURE"
-    //% block="Pressuer %Pu　Precision: %Prd"
+    //% block="Press %Pu　Precision %Prd"
     //% weight=80 blockGap=8
-    export function pressure(Pu: BME280_P,Prd: RPoint): number {
+    export function pressure(Pu: BME280_P, Prd: RPoint): number {
         get();
-        return Rnber(P/Pu,Prd);
+        return Rnber(P / Pu, Prd);
     }
 
     /**
      * Get temperature value from BME280 sensor/ BME280 センサーから気温を取得
      * @param u Temperature unit (C or F) / 温度の単位（C または F）
-     * @returns Temperature value.(Integer or decimal place) / 気温の値（整数または小数第1位）
+     * @returns Temperature value.(Integer or 1st decimal place or 2nd decimal place) 
+     * 気温の値（整数/小数第１位/小数第2位）
      */
     //% blockId="BME280_GET_TEMPERATURE"
-    //% block="Tempratuere %Tu Precision: %Trd"
+    //% block="Temp %Tu Precision %Trd"
     //% weight=80 blockGap=8
     export function temperature(Tu: BME280_T, Trd: RPoint): number {
         get();
-        let tmp=T
-        if (Tu == BME280_T.T_F) { 
+        let tmp = T
+        if (Tu == BME280_T.T_F) {
             //Fahrenheit degree/華氏	
             tmp = T * 9 / 5 + 32;
         }
-        return Rnber(tmp , Trd);
+        return Rnber(tmp, Trd);
     }
 
     /**
      * Get humidity value from BME280 sensor / BME280 センサーから湿度を取得
      *
      * @param u Humidity unit % / 湿度の単位 %
-     * @returns Humidity value.(Integer or decimal place) / 湿度の値（整数または小数第1位）
+     * @returns Humidity value.(Integer or  2 decimal place) / 湿度の値（整数または小数第２位）
      */
     //% blockId="BME280_GET_HUMIDITY"
-    //% block="Humidity  Precision: %Hrd"
+    //% block="Humidity Precision %Hrd"
     //% weight=80 blockGap=8
-    export function humidity(Hrd:RPoint): number {
+    export function humidity(Hrd: Rpoint2): number {
         get();
-        return Rnber(H,Hrd);
+        return Rnber(H, Hrd);
     }
     //Sensor power control (Power ON and OFF)
     //センサーの電源管理（起動と停止）
@@ -412,120 +430,186 @@ namespace BME280 {
      * power on / センサー起動
      */
     //% blockId="BME280_POWER_ON" block="
-    //% block="Power On Sensor"
+    //% block="Power On"
     //% weight=22 blockGap=8
     export function PowerOn() {
-        setreg(0xF4, 0x2F)
+        setreg(0xF4, 0x2F);
     }
 
     /**
      * power oFF　センサー停止
      */
     //% blockId="BME280_POWER_OFF"
-    //% block="Power OFF Sensor"
+    //% block="Power Off"
     //% weight=21 blockGap=8
     export function PowerOff() {
-        setreg(0xF4, 0)
+        setreg(0xF4, 0);
     }
 
     /**
      * Calculate Elevation difference /標高差の計算
      * Input the reference point pressure P0 into the block
      * Get the current pressure and temperature from the sensor.
+     * Elavation differrence value（Integer or 1st decimal place ）
+     * Unit m or ft
      * 基準点の気圧P0をブロックに入力
      * 現在の気圧・気温はセンサ-から取得
+     * 標高差の値（整数/小数第１位） 
+     * 単位　ｍ/ft
      */
-    //% block="Elevation difference %ELU  Pressure (reference point):%P0 %uP0"
+    //% block="Elevation difference %ELU Reference Press %P0 Unit %uP0 Precision %RndEl"
     //% blockId="Elevation_difference"
     //% weight=80  blockGap=8
-    export function getElevationdifference(Elu:Eldf,P0: number, uP1: BME280_P):number {
+    export function getElevationdifference(Elu: Eldf, P0: number, uP0: BME280_P, RndEl: Rpoint2): number {
         get();
+        // 精度
+        let Rpnt = RndEl;
         // Eprs:Current Pressure / 現地点の気圧
-        let Eprs = P    
-         // Etemp:Current Temperatuer（kelvin） /　現地点の気温（絶対温度）
-        let Etemp = T+273.15 //Celsius->kelvin　/ 摂氏－＞絶対温度
+        let Eprs = P;
+        // Etemp:Current Temperatuer（kelvin） /　現地点の気温（絶対温度）
+        let Etemp = T + 273.15; //Celsius->kelvin　/ 摂氏－＞絶対温度
         // Unification of units /単位の統一
         // If the unit of the pressure P0 at the reference point is Pa, multiply P0 by 1. 
         // If the unit is hPa, multiply P0 by 100.
-        // 基準点の気圧P0の単位がPaならそのまま、hPaなら1/100
-        // uP1:P->1 hPa->1/100
-        Eprs = Eprs *1/uP1 
+        // uP0:P->1 hPa->1/100
+        // 基準点の気圧P0の単位がPaなら現地気圧Eprsはそのまま、hPaなら1/100
+        //  Integer or 1st decimal place/整数または小数第1位まで
+        Eprs = Eprs * 1 / uP0;
+        // Adjust the initial and local pressures to the desired altitude difference precision
+        // (number of decimal points)
+        // 求める標高差の精度（小数点以下の桁数）に初期気圧・現地気圧を合わせる
+        let Rpnttimes10 = Rpnt * 10;
+        P0 = Rnber(P0, Rpnttimes10);
+        Eprs = Rnber(Eprs, Rpnttimes10);
 
         // Calculate Elevation difference / 標高差計算
         // 0.0065-> Tropospheric temperature lapse rate (0.65℃/100m) 
         // 0.0065-> 対流圏の気温減率（0.65℃/100ｍ）
-        let rt=(Math.pow((P0/Eprs),1/5.257)-1)*Etemp
+        let rt = (Math.pow((P0 / Eprs), 1 / 5.257) - 1) * Etemp
         //　Calculate Elevation difference / 標高差を算出 (Units/単位:m)
-        let Diffelev=rt/0.0065
-        // Convert values ​​according to altitude units /高度の単位に応じて数値を変換
-        if(Elu==2){
-            Diffelev=Diffelev*3.2808;}
-         return Rnber(Diffelev,10);
+        let Diffelev = rt / 0.0065
+        // Convert values ​​according to altitude units(m->ft) /高度の単位に応じて数値を変換(m-.ft)
+        if (Elu == 2) {
+            Diffelev = Diffelev * 3.2808;
+        }
+        return Rnber(Diffelev, Rpnt);
     }
 
     /**
      * Calculate Saturated Vapor Pressure,
      * 飽和水蒸気圧
+     * 整数または小数第1位
      */
-    //% block="Saturated Vapor Pressure Temp: %Ctemp Precision: %SPdtp"
+    //% block="Saturated Vapor Press Temp %Ctemp Reference %SPdtp"
     //% weight=60 blockGap=10
-    export function Calcsvp (Ctemp: number,SPdtp: RPoint) : number
-    {
-        let Rpnt=SPdtp
-        let SatVapPress=SatVpad(Ctemp,Rpnt);
-        let SVP=SatVapPress;
-        return Rnber(SVP,Rpnt);
-     }
-     
+    export function Calcsvp(Ctemp: number, SPdtp: Rpoint2): number {
+        let Rpnt = SPdtp;
+        let SatVapPress = SatVpad(Ctemp, Rpnt);
+        let SVP = SatVapPress;
+        return Rnber(SVP, Rpnt);
+    }
+    /**
+     * Calculate Realtime Saturated Vapor Pressure,
+     * 飽和水蒸気圧（リアルタイム）
+     * 整数または小数第1位
+     */
+    //% block="Saturated Vapor Pressure (current temperature) Reference %SPdtp"
+    //% weight=60 blockGap=10
+    export function Calcsvpnow(SPdtp: Rpoint2): number {
+        let Rpnt = SPdtp;
+        let Tempnow = T;
+        let SatVapPressnow = SatVpad(Tempnow, Rpnt);
+        let SVPnow = SatVapPressnow;
+        return Rnber(SVPnow, Rpnt);
+    }
+
     /**
      * Calculate Saturated Vapor Amount,
      * 飽和水蒸気量計算
+     * Integer or  decimal 1st place / 整数または小数第1位
      */
-    //% block="Saturated Vapor Amount Temp: %Ctemp  Precision: %Sadtp"
+    //% block="Saturated Vapor Amount Temp %Ctemp Reference %Sadtp"
     //% weight=60 blockGap=10
-    export function Calcsva(Ctemp: number, Sadtp: RPoint): number {
+    export function Calcsva(Ctemp: number, Sadtp: Rpoint2): number {
         let Rpnt = Sadtp;
         let SVP = SatVpad(Ctemp, Rpnt);
         let SVA = 217 * SVP / (Ctemp + 273.15);
-        return Rnber(SVA,Rpnt);
+        return Rnber(SVA, Rpnt);
+    }
+
+    /**
+        * Calculate Realtime Saturated Vapor Amount,
+        * 飽和水蒸気量計算（リアルタイム）
+        * Integer or  decimal 1st place / 整数または小数第1位
+        */
+    //% block="Saturated Vapor Amount(Current temperature) Reference %Sadtp"
+    //% weight=60 blockGap=10
+    export function Calcsvanow(Sadtp: Rpoint2): number {
+        let Rpnt = Sadtp;
+        let Ctempnow = T;
+        let SVP = SatVpad(Ctempnow, Rpnt);
+        let SVA = 217 * SVP / (Ctempnow + 273.15);
+        return Rnber(SVA, Rpnt);
     }
 
     /**
      * Calculate Dew point
      * Dew Point:Improved Magnus formula / 露点：改良マグヌス式
      * 露点
+     * Integer or  decimal 1st place / 整数または小数第1位
      */
-    //% block="Dew Point　Temp: %Dtemp  Humidity :　%RH　Precision: %dtprec"
+    //% block="Dew Point Temp %Dtemp Humidity %RH　Reference %dtprec"
     //% weight=60 blockGap=10
-    export function getDewpoint(Dtemp: number, RH: number, dtprec: RPoint):number
-    {
+    export function getDewpoint(Dtemp: number, RH: number, dtprec: Rpoint2): number {
         get();
         let da = 17.62;
         let db = 243.12;
         let alpha = Math.log(RH / 100) + (da * Dtemp) / (db + Dtemp);
+        let Rpnt = dtprec;
         let DPoint = (db * alpha) / (da - alpha);
-        DPoint = Rnber(DPoint, 100);
-        return DPoint        
+        DPoint = Rnber(DPoint, Rpnt);
+        return DPoint;
     }
-     /**
-     * Event Block
-     * イベントブロック
-    */
+
+    /**
+  * Calculate Realtime Dew point
+  * Dew Point:Improved Magnus formula / 露点：改良マグヌス式
+  * 露点(リアルタイム)
+  * Integer or  decimal 1st place / 整数または小数第1位
+  */
+    //% block="Dew Point(Ccurrent Temp & RH) Reference %dtprec"
+    //% weight=60 blockGap=10
+    export function getDewpointnow(dtprec: Rpoint2): number {
+        get();
+        let Dtemp = T;
+        let RH = H;
+        let da = 17.62;
+        let db = 243.12;
+        let alpha = Math.log(RH / 100) + (da * Dtemp) / (db + Dtemp);
+        let Rpnt = dtprec;
+        let DPoint = (db * alpha) / (da - alpha);
+        DPoint = Rnber(DPoint, Rpnt);
+        return DPoint;
+    }
+
+    /**
+    * Event Block
+    * イベントブロック
+   */
     /**
      * Triggered when pressure is Lower than a specified value. / 気圧が指定値より低い場合
-     *
      * @param dat Threshold value / しきい値（Pa）
      * @param body Action to perform / 実行する処理
      */
-    //% block="Pressue <  %dat" dat.defl=100000
+    //% block="Press <  %dat" dat.defl=100000
     export function PressureBelowThan(dat: number, body: () => void): void {
         control.inBackground(function () {
             while (true) {
-                get()
+                get();
                 if (P < dat) {
-                    body()
+                    body();
                 }
-                basic.pause(1000)
+                basic.pause(1000);
             }
         })
     }
@@ -536,35 +620,34 @@ namespace BME280 {
      * @param dat Threshold value / しきい値（Pa）
      * @param body Action to perform / 実行する処理
      */
-    //% block="Pressuer / 気圧 > %dat" dat.defl=100000
+    //% block="気Press > %dat" dat.defl=100000
     export function PressureHigherThan(dat: number, body: () => void): void {
         control.inBackground(function () {
             while (true) {
-                get()
+                get();
                 if (P > dat) {
-                    body()
+                    body();
                 }
-                basic.pause(1000)
+                basic.pause(1000);
             }
         })
     }
 
     /**
      * Triggered when temprature is Lower than a specified value. 
-     *  気温が指定値より低い場合
-     *
+     * 気温が指定値より低い場合
      * @param dat Threshold value / しきい値（C）
      * @param body Action to perform / 実行する処理
      */
-    //% block="Temperature / 気温 < %dat" dat.defl=10
+    //% block="Temp < %dat" dat.defl=10
     export function TemperatureBelowThan(dat: number, body: () => void): void {
         control.inBackground(function () {
             while (true) {
-                get()
+                get();
                 if (T < dat) {
-                    body()
+                    body();
                 }
-                basic.pause(1000)
+                basic.pause(1000);
             }
         })
     }
@@ -576,15 +659,15 @@ namespace BME280 {
      * @param dat Threshold value / しきい値（C）
      * @param body Action to perform / 実行する処理
      */
-    //% block="Temperature / 気温 > %dat" dat.defl=30
+    //% block="Temp > %dat" dat.defl=30
     export function TemperatureHigherThan(dat: number, body: () => void): void {
         control.inBackground(function () {
             while (true) {
-                get()
+                get();
                 if (T > dat) {
-                    body()
+                    body();
                 }
-                basic.pause(1000)
+                basic.pause(1000);
             }
         })
     }
@@ -595,15 +678,15 @@ namespace BME280 {
      * @param dat Threshold value / しきい値（C）
      * @param body Action to perform / 実行する処理
      */
-    //% block="Humidity / 湿度 < %dat" dat.defl=10
+    //% block="Humidity < %dat" dat.defl=10
     export function HumidityBelowThan(dat: number, body: () => void): void {
         control.inBackground(function () {
             while (true) {
-                get()
+                get();
                 if (H < dat) {
-                    body()
+                    body();
                 }
-                basic.pause(1000)
+                basic.pause(1000);
             }
         })
     }
@@ -614,15 +697,15 @@ namespace BME280 {
      * @param dat Threshold value / しきい値（C）
      * @param body Action to perform / 実行する処理
      */
-    //% block="Humidity / 湿度 > %dat" dat.defl=10
+    //% block="Humidity > %dat" dat.defl=10
     export function HumidityHigherThan(dat: number, body: () => void): void {
         control.inBackground(function () {
             while (true) {
-                get()
+                get();
                 if (H > dat) {
-                    body()
+                    body();
                 }
-                basic.pause(1000)
+                basic.pause(1000);
             }
         })
     }
@@ -633,9 +716,9 @@ namespace BME280 {
      *  @param addr I2C address to set / 設定する I2C アドレス
      */
     //% blockId="BME280_SET_ADDRESS"
-    //% block="I2C Address/I2Cアドレス %addr"
+    //% block="I2C Address %addr"
     //% weight=20 blockGap=8
     export function Address(addr: BME280_I2C_ADDRESS) {
-        BME280_I2C_ADDR = addr
+        BME280_I2C_ADDR = addr;
     }
 }
