@@ -420,7 +420,7 @@ namespace BME280 {
     //% blockId="BME280_GET_HUMIDITY"
     //% block="Humidity Precision %Hrd"
     //% weight=80 blockGap=8
-    export function humidity(Hrd: Rpoint2): number {
+    export function humidity(Hrd: Rpoint): number {
         get();
         return Rnber(H, Hrd);
     }
