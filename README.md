@@ -48,8 +48,8 @@ input.onButtonPressed(Button.B, function () {
     basic.showString("" + BME280.pressure(BME280.BME280_P.hPa, BME280.RPoint.RPt) + "hPa")
 })
 
----
----
+```
+
 
 ### ✏️ To modify the extension source code in MakeCode:
 
