@@ -33,7 +33,7 @@ Sensor values are based on the official BME280 datasheet.
 ![Sample Blocks](https://github.com/Tanagogedora/bme280-en/blob/main/BME280en.png?raw=true)
 
 💻 Sample Code  
-```javascript
+```javascript  
 
 BME280.Address(BME280.BME280_I2C_ADDRESS.ADDR_0x76)
 BME280.PowerOn()
