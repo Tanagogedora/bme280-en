@@ -462,7 +462,7 @@ namespace BME280 {
     //% weight=80  blockGap=8
     export function getElevationdifference(Elu: Eldf,RndEl: Rpoint2, P0: number, uP0: BME280_P): number {
         get();
-        // 精度
+        // Reference
         let Rpnt = RndEl;
         // Eprs:Current Pressure / 現地点の気圧
         let Eprs = P;
