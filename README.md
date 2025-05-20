@@ -49,7 +49,7 @@ input.onButtonPressed(Button.B, function () {
 })
 
 ---
-
+---
 
 ### ✏️ To modify the extension source code in MakeCode:
 
