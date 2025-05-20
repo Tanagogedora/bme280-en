@@ -457,7 +457,7 @@ namespace BME280 {
      * 標高差の値（整数/小数第１位） 
      * 単位　ｍ/ft
      */
-    //% block="Elevation Δ( %ELU ) Reference Press %P0 (Unit %uP0 ) Format %RndEl"
+    //% block="Elevation Δ %ELU Reference Press %P0  %uP0 Format %RndEl"
     //% blockId="Elevation_difference"
     //% weight=80  blockGap=8
     export function getElevationdifference(Elu: Eldf, P0: number, uP0: BME280_P, RndEl: Rpoint2): number {
@@ -501,6 +501,7 @@ namespace BME280 {
      * 整数または小数第1位
      */
     //% block="Saturated Vapor Press Temp %Ctemp Format %SPdtp"
+    //% blockID="Saturated_Vapor_Pressure"
     //% weight=60 blockGap=10
     export function Calcsvp(Ctemp: number, SPdtp: Rpoint2): number {
         let Rpnt = SPdtp;
@@ -514,6 +515,7 @@ namespace BME280 {
      * 整数または小数第1位
      */
     //% block="Saturated Vapor Pressure (current temperature) Format %SPdtp"
+    //% blockID="Saturated_Vapor_Pressure_Now"
     //% weight=60 blockGap=10
     export function Calcsvpnow(SPdtp: Rpoint2): number {
         let Rpnt = SPdtp;
@@ -529,6 +531,7 @@ namespace BME280 {
      * Integer or  decimal 1st place / 整数または小数第1位
      */
     //% block="Saturated Vapor Amount Temp %Ctemp Format %Sadtp"
+    //% blockID="Saturated_Vapor_Amount"
     //% weight=60 blockGap=10
     export function Calcsva(Ctemp: number, Sadtp: Rpoint2): number {
         let Rpnt = Sadtp;
@@ -543,6 +546,7 @@ namespace BME280 {
         * Integer or  decimal 1st place / 整数または小数第1位
         */
     //% block="Saturated Vapor Amount(Current temperature) Format %Sadtp"
+    //% blockID="Saturated_Vapor_Amount_Now"
     //% weight=60 blockGap=10
     export function Calcsvanow(Sadtp: Rpoint2): number {
         let Rpnt = Sadtp;
@@ -559,6 +563,7 @@ namespace BME280 {
      * Integer or  decimal 1st place / 整数または小数第1位
      */
     //% block="Dew Point Temp %Dtemp Humidity %RH　Format %dtprec"
+    //% blockID="Dew_Point"
     //% weight=60 blockGap=10
     export function getDewpoint(Dtemp: number, RH: number, dtprec: Rpoint2): number {
         get();
@@ -577,7 +582,8 @@ namespace BME280 {
   * 露点(リアルタイム)
   * Integer or  decimal 1st place / 整数または小数第1位
   */
-    //% block="Dew Point(Ccurrent Temp & RH) Format %dtprec"
+    //% block="Dew Point(Ccurrent Temp & RH) Format %dtprec"3
+    //% blockID="Dew_Point_Now"
     //% weight=60 blockGap=10
     export function getDewpointnow(dtprec: Rpoint2): number {
         get();
