@@ -420,7 +420,7 @@ namespace BME280 {
     //% blockId="BME280_GET_HUMIDITY"
     //% block="Humidity Format %Hrd"
     //% weight=80 blockGap=8
-    export function humidity(Hrd: Rpoint2): number {
+    export function humidity(Hrd: Rpoint): number {
         get();
         return Rnber(H, Hrd);
     }
@@ -460,7 +460,7 @@ namespace BME280 {
     //% block="Elevation Δ %ELU  Format %RndEl Reference Press %P0  Unit(Air Pressure) %uP0"
     //% blockId="Elevation_difference"
     //% weight=80  blockGap=8
-    export function getElevationdifference(Elu: Eldf, P0: number, uP0: BME280_P, RndEl: Rpoint2): number {
+    export function getElevationdifference(Elu: Eldf,RndEl: Rpoint2, P0: number, uP0: BME280_P): number {
         get();
         // 精度
         let Rpnt = RndEl;
